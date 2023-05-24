@@ -11,19 +11,11 @@ const schema=new mongoose.Schema({
         type:String,
         required:[true,"email is required"],
         unique:true,
-        validate:{
-            validator:function(value){
-                return isEmail(value)
-            },
-            message:function(){
-                return "please enter valid email format"
-            }
-        }
     },
     password:{
         type:String,
         required:[true,"password is required"],
-        minLength:5,
+        minLength:3,
         maxLength:128
     }
 })

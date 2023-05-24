@@ -1,5 +1,6 @@
 const user=require("../Model/usermodel")
 const bcrypt=require("bcryptjs")
+//const jwt=require("jsonwebtoken")
 
 const users={}
 
@@ -26,7 +27,7 @@ users.register=(req,res)=>{
                                     
                                  })
                         }
-
+//to get all data
 users.getall=(req,res)=>{
     user.find()
     .then((e)=>{
@@ -37,26 +38,43 @@ users.getall=(req,res)=>{
        })
 
 }
-//compare and login
+//insert
+users.insert=(req,res)=>{
+    let body=req.body
+    new user(body).save()
+    .then((a)=>{
+        res.json(a)
+    })
+    .catch((e)=>{
+        res.json(e)
+    })
+          
+}
+
+//login
 users.login=(req,res)=>{
     let body=req.body
     user.findOne({email:body.email})
-         .then((user)=>{
-            if(!user){
-                res.json("wrong email or password")
+    .then((user)=>{
+        if(!user){
+            res.json("wrong email or password ")
+        }
+        bcrypt.compare(body.password,user.password)
+        .then((match)=>{
+            if(match){
+                res.json(user)
             }
-
-            bcrypt.compare(body.password, user.password)
-            .then((match)=>{
-                if(match){
-                    res.json(user)
-                }
-                else{
-                    res.json("wrong email or password")
-                }
-                })
-            })
+            else{
+                res.json("wrong email")
+            }
+        })
         
+    })
 }
+
+//useraccount 
+//users.getaccount=(req,res)=>{
+ //   res.json(req.user)
+//}
 
 module.exports=users
