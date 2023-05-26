@@ -1,5 +1,6 @@
 import React from 'react'
 import { Link ,useNavigate} from 'react-router-dom'
+import {CgProfile} from "react-icons/cg"
 const Navbar = () => {
   const navigate=useNavigate()
   
@@ -14,12 +15,23 @@ const Navbar = () => {
           <ul className='navbar-nav'>
     
             {
-              localStorage.getItem("token")  ? <li className='nav-item'><Link to={"/Login"} className='nav-link text-white' onClick={()=>{ localStorage.removeItem("token") 
+              localStorage.getItem("token")  ? <li ></li> : <li className='nav-item'><Link to={"/Login"}  className='nav-link text-white' >Login</Link>  </li>
+            }
+             {
+              localStorage.getItem("token")? <li class="nav-item dropdown">
+              <Link class="nav-link dropdown-toggle text-white"  id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <CgProfile size={30}/>
+              </Link>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                <Link class="dropdown-item" >Profile</Link>
+                <Link class="dropdown-item"  onClick={()=>{ localStorage.removeItem("token") 
               alert("Succesfully Logout")
               navigate("/")
-            }} >logout</Link>       </li> : <li className='nav-item'><Link to={"/Login"}  className='nav-link text-white' >Login</Link>  </li>
-            }
-                 
+            }} >Logout</Link>
+                
+              </div>
+            </li>:<li></li>
+             }    
           </ul>
           
         </div>
