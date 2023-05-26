@@ -13,5 +13,6 @@ routes.get("/home",usercontroller.home)
 routes.post("/signup",auth.signup,usercontroller.signup)
 routes.get("/displaydata",usercontroller.displaydata)
 routes.post("/login",usercontroller.login)
+routes.get("/profile",auth.profile,usercontroller.profile)
 
 module.exports=routes

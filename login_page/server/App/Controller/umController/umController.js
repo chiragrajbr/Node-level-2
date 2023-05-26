@@ -94,5 +94,11 @@ usercontroller.login=(req,res)=>{
     })
 }
 
+//profile
+usercontroller.profile=(req,res)=>{
+    let body=req.user
+    res.json(body)
+}
+
 
 module.exports=usercontroller
